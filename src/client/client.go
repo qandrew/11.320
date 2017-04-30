@@ -1,23 +1,62 @@
 package main
 
-import "net"
-import "fmt"
-import "bufio"
-import "os"
+import (
+	"fmt"
+	"log"
+	"net"
+	"net/rpc"
+	// "bufio"
+	// "os"
+
+	"shared" //Path to the package contains shared struct
+)
+
+type Arith struct {
+	client *rpc.Client
+}
+
+func (t *Arith) Divide(a, b int) shared.Quotient {
+	args := &shared.Args{a, b}
+	var reply shared.Quotient
+	err := t.client.Call("Arithmetic.Divide", args, &reply)
+	if err != nil {
+		log.Fatal("arith error:", err)
+	}
+	return reply
+}
+
+func (t *Arith) Multiply(a, b int) int {
+	args := &shared.Args{a, b}
+	var reply int
+	err := t.client.Call("Arithmetic.Multiply", args, &reply)
+	if err != nil {
+		log.Fatal("arith error:", err)
+	}
+	return reply
+}
 
 func main() {
 
-// connect to this socket
-	conn, _ := net.Dial("tcp", "127.0.0.1:8081")
-	for {
-		// read in input from stdin
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Text to send: ")
-		text, _ := reader.ReadString('\n')
-		// send to socket
-		fmt.Fprintf(conn, text + "\n")
-		// listen for reply
-		message, _ := bufio.NewReader(conn).ReadString('\n')
-		fmt.Print("Message from server: "+message)
+	// Tries to connect to localhost:1234 (The port on which rpc server is listening)
+	conn, err := net.Dial("tcp", "localhost:1234")
+	if err != nil {
+		log.Fatal("Connectiong:", err)
 	}
+
+	// Create a struct, that mimics all methods provided by interface.
+	// It is not compulsory, we are doing it here, just to simulate a traditional method call.
+	arith := &Arith{client: rpc.NewClient(conn)}
+
+	// for {
+	// 	reader := bufio.NewReader(os.Stdin)
+	// 	fmt.Print("Text to send: ")
+	// 	text, _ := reader.ReadString('\n')
+	// 	fmt.Print("first ", text + "\n")
+	// 	text2, _ := reader.ReadString('\n')
+	// 	fmt.Print("second ", text2 + "\n")
+
+	// }
+
+	fmt.Println(arith.Multiply(5, 6))
+	fmt.Println(arith.Divide(500, 10))
 }
