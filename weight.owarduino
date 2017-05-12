@@ -1,0 +1,120 @@
+<OPEN WIRE DIAGRAM VERSION 1/>
+<UNIT Unit1>
+  <COMPONENT Arduino>
+    <X 560/>
+    <INSTANCE object Arduino: TArduinoBoard
+  Modules.Items = <
+    item
+      _ = TArduinoEEPROMModule
+    end\>
+  AnalogInputReference = Default
+  Serial.Items = <
+    item
+      _ = TArduinoHardwareSerial
+      InputPin.Form = __OpenWireRootUnit__
+      InputPin.SourcePins = (
+        __OpenWireRootUnit__.WeightScale1.OutputPin)
+    end\>
+  I2CChannels.Items = <
+    item
+      _ = TArduinoI2C
+    end\>
+  Digital.Items = <
+    item
+      _ = TArduinoAdditionalDigitalSerial0Channel
+    end
+    item
+      _ = TArduinoAdditionalDigitalSerial0Channel
+    end
+    item
+      _ = TArduinoAdditionalDigitalInterruptChannel
+      DigitalInputPin.Form = __OpenWireRootUnit__
+      DigitalInputPin.SourcePin = __OpenWireRootUnit__.WeightScale1.SensorClockOutputPin
+    end
+    item
+      _ = TArduinoBasicDigitalPWMInterruptChannel
+      OutputPin.Form = __OpenWireRootUnit__
+      OutputPin.SinkPins = (
+        __OpenWireRootUnit__.WeightScale1.SensorDataInputPin)
+    end
+    item
+      _ = TArduinoAdditionalDigitalChannel
+    end
+    item
+      _ = TArduinoBasicDigitalPWMChannel
+    end
+    item
+      _ = TArduinoBasicDigitalPWMChannel
+    end
+    item
+      _ = TArduinoAdditionalDigitalChannel
+    end
+    item
+      _ = TArduinoAdditionalDigitalChannel
+    end
+    item
+      _ = TArduinoBasicDigitalPWMChannel
+    end
+    item
+      _ = TArduinoBasicDigitalPWMChannel
+    end
+    item
+      _ = TArduinoBasicDigitalPWMSPI0Channel
+    end
+    item
+      _ = TArduinoAdditionalDigitalSPI0Channel
+    end
+    item
+      _ = TArduinoAdditionalDigitalSPI0Channel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalChannel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalChannel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalChannel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalChannel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalI2C0Channel
+    end
+    item
+      _ = TArduinoCombinedAnalogDigitalI2C0Channel
+    end\>
+end
+/>
+    <Y 256/>
+  </COMPONENT>
+  <COMPONENT WeightScale1>
+    <X 256/>
+    <INSTANCE object WeightScale1: TArduinoHX711Weight
+  OutputPin.Form = __OpenWireRootUnit__
+  OutputPin.SinkPins = (
+    (
+      __OpenWireRootUnit__.Arduino.Serial._Item0.InputPin
+      '__OpenWireRootUnit__.Arduino.Serial[0].InputPin'))
+  SensorClockOutputPin.Form = __OpenWireRootUnit__
+  SensorClockOutputPin.SinkPins = (
+    (
+      __OpenWireRootUnit__.Arduino.Digital._Item2.DigitalInputPin
+      
+        '__OpenWireRootUnit__.Arduino.Digital.Digital[ 2 ].DigitalInputPi' +
+        'n'))
+  SensorDataInputPin.Form = __OpenWireRootUnit__
+  SensorDataInputPin.SourcePin = (
+    __OpenWireRootUnit__.Arduino.Digital._Item3.OutputPin
+    '__OpenWireRootUnit__.Arduino.Digital.Digital[ 3 ].OutputPin')
+  Powered = False
+end
+/>
+    <Y 432/>
+  </COMPONENT>
+    <SELECTION WeightScale1/>
+    <BINDINGS object TOWPinBindingManager
+end
+/>
+</UNIT>
